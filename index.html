@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шифри</title>
+</head>
+<body>
+
+<h2>Шифр перестановки</h2>
+<textarea id="inputTextPermutation" placeholder="Введіть текст для шифрування"></textarea>
+<button onclick="encryptPermutation()">Зашифрувати</button>
+<textarea id="outputTextPermutation" placeholder="Результат шифрування"></textarea>
+<button onclick="decryptPermutation()">Розшифрувати</button>
+<textarea id="decryptedTextPermutation" placeholder="Результат розшифрування"></textarea>
+
+<h2>Шифр заміни</h2>
+<textarea id="inputTextSubstitution" placeholder="Введіть текст для шифрування"></textarea>
+<button onclick="encryptSubstitution()">Зашифрувати</button>
+<textarea id="outputTextSubstitution" placeholder="Результат шифрування"></textarea>
+<button onclick="decryptSubstitution()">Розшифрувати</button>
+<textarea id="decryptedTextSubstitution" placeholder="Результат розшифрування"></textarea>
+
+<script>
+    // Шифр перестановки
+    function encryptPermutation() {
+        const inputText = document.getElementById("inputTextPermutation").value;
+        const key = 3; // Задайте ваш ключ для перестановки
+
+        let encryptedText = "";
+        for (let i = 0; i < inputText.length; i++) {
+            const char = inputText.charAt((i + key) % inputText.length);
+            encryptedText += char;
+        }
+
+        document.getElementById("outputTextPermutation").value = encryptedText;
+    }
+
+    function decryptPermutation() {
+        const inputText = document.getElementById("outputTextPermutation").value;
+        const key = 3; // Задайте ваш ключ для перестановки
+
+        let decryptedText = "";
+        for (let i = 0; i < inputText.length; i++) {
+            const char = inputText.charAt((i - key + inputText.length) % inputText.length);
+            decryptedText += char;
+        }
+
+        document.getElementById("decryptedTextPermutation").value = decryptedText;
+    }
+
+    // Шифр заміни
+    function encryptSubstitution() {
+        const inputText = document.getElementById("inputTextSubstitution").value;
+        const substitutionKey = {
+            'a': 'q', 'b': 'w', 'c': 'e', 'd': 'r', 'e': 't',
+            'f': 'y', 'g': 'u', 'h': 'i', 'i': 'o', 'j': 'p',
+            'k': 'a', 'l': 's', 'm': 'd', 'n': 'f', 'o': 'g',
+            'p': 'h', 'q': 'j', 'r': 'k', 's': 'l', 't': 'z',
+            'u': 'x', 'v': 'c', 'w': 'v', 'x': 'b', 'y': 'n',
+            'z': 'm'
+        };
+
+        let encryptedText = "";
+        for (let i = 0; i < inputText.length; i++) {
+            const char = inputText.charAt(i).toLowerCase();
+            encryptedText += substitutionKey[char] || char;
+        }
+
+        document.getElementById("outputTextSubstitution").value = encryptedText;
+    }
+
+    function decryptSubstitution() {
+        const inputText = document.getElementById("outputTextSubstitution").value;
+        const substitutionKey = {
+            'q': 'a', 'w': 'b', 'e': 'c', 'r': 'd', 't': 'e',
+            'y': 'f', 'u': 'g', 'i': 'h', 'o': 'i', 'p': 'j',
+            'a': 'k', 's': 'l', 'd': 'm', 'f': 'n', 'g': 'o',
+            'h': 'p', 'j': 'q', 'k': 'r', 'l': 's', 'z': 't',
+            'x': 'u', 'c': 'v', 'v': 'w', 'b': 'x', 'n': 'y',
+            'm': 'z'
+        };
+
+        let decryptedText = "";
+        for (let i = 0; i < inputText.length; i++) {
+            const char = inputText.charAt(i).toLowerCase();
+            decryptedText += substitutionKey[char] || char;
+        }
+
+        document.getElementById("decryptedTextSubstitution").value = decryptedText;
+    }
+</script>
+
+</body>
+</html>
